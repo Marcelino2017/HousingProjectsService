@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Houses\HouseController;
 use App\Http\Controllers\HousingProject\HousingProjectController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -28,7 +29,15 @@ Route::middleware('auth:sanctum')->group(function ()  {
         Route::post('housingproject', 'store')->name('store');
         Route::get('/housingproject/{housingproject:housingproject}', 'show')->name('show');
         Route::put('/housingproject/{housingproject:housingproject}', 'update')->name('update');
-        Route::delete('/housingproject/{housingproject:housingproject}', 'update')->name('update');
+        Route::delete('/housingproject/{housingproject:housingproject}', 'destroy')->name('destroy');
+    });
+
+    Route::controller(HouseController::class)->group(function () {
+        Route::get('/house', 'index')->name('index');
+        Route::post('house', 'store')->name('store');
+        Route::get('/house/{house}', 'show')->name('show');
+        Route::put('/house/{house}', 'update')->name('update');
+        Route::delete('/house/{house}', 'destroy')->name('destroy');
     });
 });
 
