@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Houses;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Houses\HouseStoreRequest;
 use App\Http\Requests\Houses\HouseUpdateRequest;
+use App\Http\Resources\Houses\HouseResource;
 use App\Models\House;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,7 @@ class HouseController extends Controller
      */
     public function index()
     {
-        //
+        return HouseResource::collection(House::all());
     }
 
     /**
@@ -23,17 +24,14 @@ class HouseController extends Controller
      */
     public function store(HouseStoreRequest $request)
     {
-        $house =House::create([
+        $house = House::create([
             'name' => $request->name,
             'number_rooms' => $request->number_rooms,
             'price' => $request->price,
             'description' => $request->description,
         ]);
 
-        return response()->json([
-            'status' => 'success',
-            'housing_project' => $house,
-        ]);
+        return new HouseResource($house);
     }
 
     /**
@@ -43,22 +41,24 @@ class HouseController extends Controller
     {
         try {
             $house = House::findOrFail($houseId);
-            return response()->json($house);
+            return new HouseResource($house);
         } catch (\Throwable $th) {
-            return response()->json(['message' => 'Casa no encontrado'], 404);
+            return response()->json(['message' => 'Casa no encontrada'], 404);
         }
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(HouseUpdateRequest $request, House $house)
+    public function update(HouseUpdateRequest $request, int $houseId)
     {
-        $houseUpdate = $house->fill($request->all());
-
-        return response()->json([
-            'house' => $houseUpdate
-        ]);
+        try {
+            $house = House::findOrFail($houseId);
+            $houseUpdate = $house->fill($request->all());
+            return new HouseResource($houseUpdate);
+        } catch (\Throwable $th) {
+            return response()->json(['message' => 'Casa no encontrada'], 404);
+        }
     }
 
     /**
