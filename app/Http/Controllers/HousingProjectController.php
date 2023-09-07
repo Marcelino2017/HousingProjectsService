@@ -36,9 +36,14 @@ class HousingProjectController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(HousingProject $housingProject)
+    public function show(int $housingProject)
     {
-        //
+        try {
+            $housing = HousingProject::findOrFail($housingProject);
+            return response()->json($housing);
+        } catch (\Throwable $th) {
+            return response()->json(['message' => 'Proyecto de vivienda no encontrado'], 404);
+        }
     }
 
     /**
@@ -46,7 +51,7 @@ class HousingProjectController extends Controller
      */
     public function update(Request $request, HousingProject $housingProject)
     {
-        //
+
     }
 
     /**
