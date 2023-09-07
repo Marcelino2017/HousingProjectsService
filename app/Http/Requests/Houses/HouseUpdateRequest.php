@@ -4,7 +4,7 @@ namespace App\Http\Requests\Houses;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class HouseStoreRequest extends FormRequest
+class HouseUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -33,7 +33,7 @@ class HouseStoreRequest extends FormRequest
     {
         return [
             'name.required' => 'El campo :attribute es obligatorio',
-            'name.numeric' => 'El campo del :attribute debe ser un número.',
+            'name.string' => 'El campo del :attribute debe ser un texto.',
             'number_rooms.required' => 'El campo :attribute es obligatorio',
             'number_rooms.numeric' => 'El campo del :attribute debe ser un número.',
             'price.required' => 'El campo :attribute es obligatorio',

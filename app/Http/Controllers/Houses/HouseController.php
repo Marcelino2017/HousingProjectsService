@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Houses;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Houses\HouseStoreRequest;
+use App\Http\Requests\Houses\HouseUpdateRequest;
 use App\Models\House;
 use Illuminate\Http\Request;
 
@@ -51,9 +52,13 @@ class HouseController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, House $house)
+    public function update(HouseUpdateRequest $request, House $house)
     {
         $houseUpdate = $house->fill($request->all());
+
+        return response()->json([
+            'house' => $houseUpdate
+        ]);
     }
 
     /**
