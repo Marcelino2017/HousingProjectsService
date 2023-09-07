@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
-use App\Http\Controllers\HousingProjectController;
+use App\Http\Controllers\HousingProject\HousingProjectController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,7 +22,14 @@ Route::middleware('auth:sanctum')->group(function ()  {
     });
 
     Route::post('/logout', [AuthController::class, 'logout']);
-    Route::apiResource('/housingproject', HousingProjectController::class);
+
+    Route::controller(HousingProjectController::class)->group(function () {
+        Route::get('/housingproject', 'index')->name('index');
+        Route::post('housingproject', 'store')->name('store');
+        Route::get('/housingproject/{housingproject:housingproject}', 'show')->name('show');
+        Route::put('/housingproject/{housingproject:housingproject}', 'update')->name('update');
+        Route::delete('/housingproject/{housingproject:housingproject}', 'update')->name('update');
+    });
 });
 
 Route::post('/register', [AuthController::class, 'register']);
