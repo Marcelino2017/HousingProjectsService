@@ -12,6 +12,7 @@ class Payment extends Model
     protected $fillable = [
         'user_id',
         'housing_project_id',
-        'payment_number',
+        'amount',
+        'payment_date',
     ];
 }
