@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->integer('number_rooms');
-            $table->decimal('price', 10, 2);
+            $table->decimal('price', 30, 2);
             $table->text('description')->nullable();
             $table->timestamps();
         });
