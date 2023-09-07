@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Houses;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Houses\HouseStoreRequest;
 use App\Models\House;
 use Illuminate\Http\Request;
 
@@ -19,9 +20,19 @@ class HouseController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(HouseStoreRequest $request)
     {
-        //
+        $house =House::create([
+            'name' => $request->name,
+            'number_rooms' => $request->number_rooms,
+            'price' => $request->price,
+            'description' => $request->description,
+        ]);
+
+        return response()->json([
+            'status' => 'success',
+            'housing_project' => $house,
+        ]);
     }
 
     /**
