@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Payments;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Payments\PaymentProjectStoreRequest;
+use App\Http\Requests\Payments\PaymentProjectUpdateRequest;
 use App\Http\Resources\Payments\PaymentProjectResource;
 use App\Models\HousingProject;
 use App\Models\Payment;
@@ -16,7 +17,7 @@ class PaymentController extends Controller
      */
     public function index()
     {
-        //
+        return PaymentProjectResource::collection(Payment::all());
     }
 
     /**
@@ -60,17 +61,43 @@ class PaymentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Payment $payment)
+    public function show(int $paymentId)
     {
-        
+        try {
+            $payment = Payment::findOrFail($paymentId);
+            return new PaymentProjectResource($payment);
+        } catch (\Throwable $th) {
+            return response()->json(['message' => 'Pago no encontrado'], 404);
+        }
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Payment $payment)
+    public function update(PaymentProjectUpdateRequest $request, int $paymentId)
     {
-        //
+
+
+        try {
+            $payment = Payment::findOrFail($paymentId);
+            $housingProject = HousingProject::find($payment->housing_project_id);
+
+            if (!$housingProject) {
+                return response()->json(['message' => 'Proyecto de vivienda no encontrado'], 404);
+            }
+
+            if ($request->amount > $housingProject->house->price) {
+                return response()->json(['message' => 'El monto a pagar supera la el precio del Proyecto de vivienda'], 404);
+            }
+
+            $payment->amount = $request->amount;
+            $payment->payment_date = $request->payment_date;
+            $payment->save();
+
+            return new PaymentProjectResource($payment);
+        } catch (\Throwable $th) {
+            return response()->json(['message' => 'Pago  no encontrado'], 404);
+        }
     }
 
     /**
@@ -78,6 +105,9 @@ class PaymentController extends Controller
      */
     public function destroy(Payment $payment)
     {
-        //
+        $payment->delete();
+        return response()->json([
+            'message' => 'Se elimino con exito el pago'
+        ]);
     }
 }
