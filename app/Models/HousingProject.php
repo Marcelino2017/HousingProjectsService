@@ -10,8 +10,8 @@ class HousingProject extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',
-        'description',
+        'house_id',
+        'user_id',
         'payment_number',
     ];
 }

@@ -22,8 +22,8 @@ class HousingProjectStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'house_id' =>  ['required', 'integer', 'exists:houses,id'],
-            'user_id' =>  ['required', 'integer', 'exists:users,id'],
+            'house_id' =>  ['required', 'numeric', 'exists:houses,id'],
+            'user_id' =>  ['required', 'numeric', 'exists:users,id'],
             'payment_number' =>  ['required', 'numeric'],
         ];
     }
@@ -32,9 +32,11 @@ class HousingProjectStoreRequest extends FormRequest
     {
         return [
             'house_id.required' => 'El campo :attribute es obligatorio',
-            'name.string' => 'El campo :attribute debe ser una cadena.',
+            'house_id.exists' => 'El :attribute seleccionada no es válido.',
+            'house_id.numeric' => 'El campo del :attribute debe ser un número.',
             'user_id.required' => 'El campo :attribute es obligatorio',
-            'description.string' => 'El campo :attribute debe ser una cadena.',
+            'user_id.exists' => 'El :attribute seleccionada no es válido.',
+            'user_id.numeric' => 'El campo del :attribute debe ser un número.',
             'payment_number.required' => 'El campo:attribute es obligatorio',
             'payment_number.numeric' => 'El campo del :attribute debe ser un número.',
         ];
@@ -43,8 +45,8 @@ class HousingProjectStoreRequest extends FormRequest
     public function attributes()
     {
         return [
-            'name' => 'nombre',
-            'description' => 'descripción',
+            'house_id' => 'Id de la casa',
+            'user_id' => 'Id del usuario',
             'payment_number' => 'número de pago',
         ];
     }
