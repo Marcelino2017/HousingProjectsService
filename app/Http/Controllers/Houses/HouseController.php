@@ -38,9 +38,14 @@ class HouseController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(House $house)
+    public function show(int $houseId)
     {
-        //
+        try {
+            $house = House::findOrFail($houseId);
+            return response()->json($house);
+        } catch (\Throwable $th) {
+            return response()->json(['message' => 'Casa no encontrado'], 404);
+        }
     }
 
     /**
@@ -48,7 +53,7 @@ class HouseController extends Controller
      */
     public function update(Request $request, House $house)
     {
-        //
+        $houseUpdate = $house->fill($request->all());
     }
 
     /**
