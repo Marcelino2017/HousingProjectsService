@@ -27,19 +27,20 @@ class RegisterRequest extends FormRequest
             'email' => ['required', 'string', 'unique:users,email'],
             'password' => [
                 'required',
-                'confirmation',
-                PasswordRule::min(8)->letters()->symbols()->numbers()
+                'confirmed',
+                PasswordRule::min(8)->letters()->symbols()->numbers(),
             ],
         ];
     }
 
     public function messages()
     {
-       /*  return [
-            'name.required' => ['El Nombre es obligatorio'],
-            'email.required' => ['El Email es obligatorio'],
-            'email.email' => ['El email no es valido'],
-            'password' => ['El passqoe'],
-        ]; */
+        return [
+            'name' => 'El Nombre es obligatorio',
+            'email.required' => 'El Email es obligatorio',
+            'email.email' => 'El Email no es válido',
+            'email.unique' => 'El usuario ya esta registrado',
+            'password' => 'La confirmación del campo de contraseña no coincide. El campo de contraseña debe tener al menos 8 caracteres. ',
+        ];
     }
 }
