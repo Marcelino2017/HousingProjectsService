@@ -15,7 +15,12 @@ class HousingProjectResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            
+            'id' => $this->id,
+            'house_id' => $this->house_id,
+            'user_id' => $this->user_id,
+            'payment_number' => $this->payment_number,
+            'user' => $this->user,
+            'house' => $this->house,
         ];
     }
 }

@@ -4,8 +4,11 @@ namespace App\Http\Controllers\HousingProject;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\HousingProjects\HousingProjectStoreRequest;
+use App\Http\Requests\HousingProjects\HousingProjectUpdateRequest;
+use App\Http\Resources\HousingProject\HousingProjectResource;
 use App\Models\HousingProject;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class HousingProjectController extends Controller
 {
@@ -14,7 +17,7 @@ class HousingProjectController extends Controller
      */
     public function index()
     {
-        //
+        return HousingProjectResource::collection(HousingProject::with(['user', 'house'])->get());
     }
 
     /**
@@ -28,10 +31,7 @@ class HousingProjectController extends Controller
             'payment_number' => $request->payment_number,
         ]);
 
-        return response()->json([
-            'housing_project' => $housingProject,
-            'status' => 'success',
-        ]);
+        return new HousingProjectResource($housingProject);
     }
 
     /**
@@ -41,7 +41,7 @@ class HousingProjectController extends Controller
     {
         try {
             $housing = HousingProject::findOrFail($housingProject);
-            return response()->json($housing);
+            return new HousingProjectResource($housing);
         } catch (\Throwable $th) {
             return response()->json(['message' => 'Proyecto de vivienda no encontrado'], 404);
         }
@@ -50,9 +50,15 @@ class HousingProjectController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, HousingProject $housingProject)
+    public function update(HousingProjectUpdateRequest $request, int $housingProjectId)
     {
-
+        try {
+            $housingProject = HousingProject::findOrFail($housingProjectId);
+            $housingProjectUpdate = $housingProject->fill($request->all());
+            return new HousingProjectResource($housingProjectUpdate);
+        } catch (\Throwable $th) {
+            return response()->json(['message' => 'Proyecto de vivienda no encontrado'], 404);
+        }
     }
 
     /**
@@ -60,6 +66,9 @@ class HousingProjectController extends Controller
      */
     public function destroy(HousingProject $housingProject)
     {
-        //
+        $housingProject->delete();
+        return response()->json([
+            'message' => 'Se eliminó con éxito el Proyecto de Vivienda'
+        ]);
     }
 }
