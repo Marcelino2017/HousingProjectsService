@@ -19,10 +19,10 @@ class AuthController extends Controller
             'password' => bcrypt($request->password),
         ]);
 
-        return [
+        return response()->json([
             'token' => $user->createToken('token')->plainTextToken,
             'user' => $user,
-        ];
+        ]);
     }
 
     public function login(LoginRequest $request)
@@ -39,10 +39,10 @@ class AuthController extends Controller
         }
 
         $user = Auth::user();
-        return [
+        return response()->json([
             'token' => $user->createToken('token')->plainTextToken,
             'user' => $user,
-        ];
+        ]);
     }
 
     public function logout(Request $request)
@@ -50,8 +50,9 @@ class AuthController extends Controller
         $user = $request->user();
         $user->currentAccessToken()->delete();
 
-        return [
+        return response()->json([
+            'status' => 'success',
             'message' => 'Sesión finalizada'
-        ];
+        ]);
     }
 }
