@@ -13,8 +13,13 @@ return new class extends Migration
     {
         Schema::create('housing_projects', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->text('description');
+
+            $table->unsignedBigInteger('house_id');
+            $table->foreign('house_id')->references('id')->on('houses')->onDelete('cascade');
+
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
             $table->integer('payment_number');
             $table->timestamps();
         });
