@@ -22,7 +22,7 @@ class HousingProjectStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'house_id' =>  ['required', 'numeric', 'exists:houses,id'],
+            'house_id' =>  ['required', 'numeric', 'exists:houses,id', 'unique:housing_projects,house_id'],
             'user_id' =>  ['required', 'numeric', 'exists:users,id'],
             'payment_number' =>  ['required', 'numeric'],
         ];
@@ -32,6 +32,7 @@ class HousingProjectStoreRequest extends FormRequest
     {
         return [
             'house_id.required' => 'El campo :attribute es obligatorio',
+            'house_id.unique' => 'El :attribute ya ha sido tomado.',
             'house_id.exists' => 'El :attribute seleccionada no es válido.',
             'house_id.numeric' => 'El campo del :attribute debe ser un número.',
             'user_id.required' => 'El campo :attribute es obligatorio',
