@@ -24,4 +24,9 @@ class HousingProject extends Model
     {
         return $this->belongsTo(House::class);
     }
+
+    public function Payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
 }

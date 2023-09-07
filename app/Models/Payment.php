@@ -14,4 +14,9 @@ class Payment extends Model
         'amount',
         'payment_date',
     ];
+
+    public function housingProject()
+    {
+        return $this->belongsTo(HousingProject::class);
+    }
 }
