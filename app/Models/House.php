@@ -15,4 +15,9 @@ class House extends Model
         'price',
         'description',
     ];
+
+    public function housingProject()
+    {
+        return $this->hasOne(HousingProject::class);
+    }
 }
