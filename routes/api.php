@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Houses\HouseController;
 use App\Http\Controllers\HousingProject\HousingProjectController;
+use App\Http\Controllers\Payments\PaymentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -38,6 +39,14 @@ Route::middleware('auth:sanctum')->group(function ()  {
         Route::get('/house/{house}', 'show')->name('show');
         Route::put('/house/{house}', 'update')->name('update');
         Route::delete('/house/{house}', 'destroy')->name('destroy');
+    });
+
+    Route::controller(PaymentController::class)->group(function () {
+        Route::get('/payment', 'index')->name('index');
+        Route::post('payment', 'store')->name('store');
+        Route::get('/payment/{payment}', 'show')->name('show');
+        Route::put('/payment/{payment}', 'update')->name('update');
+        Route::delete('/payment/{payment}', 'destroy')->name('destroy');
     });
 });
 
