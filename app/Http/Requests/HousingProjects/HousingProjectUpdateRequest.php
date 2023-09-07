@@ -3,6 +3,7 @@
 namespace App\Http\Requests\HousingProjects;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class HousingProjectUpdateRequest extends FormRequest
 {
@@ -22,7 +23,9 @@ class HousingProjectUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'house_id' =>  ['required', 'numeric', 'exists:houses,id', 'unique:housing_projects,house_id,'.$this->house_id],
+            'house_id' =>  ['required', 'numeric', 'exists:houses,id',
+                Rule::unique('housing_projects', 'house_id')->ignore($this->house_id, 'house_id')
+            ],
             'user_id' =>  ['required', 'numeric', 'exists:users,id'],
             'payment_number' =>  ['required', 'numeric'],
         ];
