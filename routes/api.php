@@ -36,7 +36,7 @@ Route::middleware('auth:sanctum')->group(function ()  {
     Route::controller(HouseController::class)->group(function () {
         Route::get('/house', 'index');
         Route::post('house', 'store');
-        Route::get('/house/{house}', 'show')->name('show');
+        Route::get('/house/{house}', 'show');
         Route::put('/house/{house}', 'update');
         Route::delete('/house/{house}', 'destroy');
     });
