@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\HousingProjects;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -22,8 +22,8 @@ class HousingProjectStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' =>  ['required', 'string'],
-            'description' =>  ['required', 'string'],
+            'house_id' =>  ['required', 'integer', 'exists:houses,id'],
+            'user_id' =>  ['required', 'integer', 'exists:users,id'],
             'payment_number' =>  ['required', 'numeric'],
         ];
     }
@@ -31,9 +31,9 @@ class HousingProjectStoreRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'El campo :attribute es obligatorio',
+            'house_id.required' => 'El campo :attribute es obligatorio',
             'name.string' => 'El campo :attribute debe ser una cadena.',
-            'description.required' => 'El campo :attribute es obligatorio',
+            'user_id.required' => 'El campo :attribute es obligatorio',
             'description.string' => 'El campo :attribute debe ser una cadena.',
             'payment_number.required' => 'El campo:attribute es obligatorio',
             'payment_number.numeric' => 'El campo del :attribute debe ser un número.',

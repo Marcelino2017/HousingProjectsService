@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\HousingProject;
 
-use App\Http\Requests\HousingProjectStoreRequest;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\HousingProjects\HousingProjectStoreRequest;
 use App\Models\HousingProject;
 use Illuminate\Http\Request;
 
@@ -22,8 +23,8 @@ class HousingProjectController extends Controller
     public function store(HousingProjectStoreRequest $request)
     {
         $housingProject = HousingProject::create([
-            'name' => $request->name,
-            'description' => $request->description,
+            'house_id' => $request->house_id,
+            'user_id' => $request->user_id,
             'payment_number' => $request->payment_number,
         ]);
 
