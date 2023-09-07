@@ -54,8 +54,8 @@ class HouseController extends Controller
     {
         try {
             $house = House::findOrFail($houseId);
-            $houseUpdate = $house->fill($request->all());
-            return new HouseResource($houseUpdate);
+            $house->fill($request->all())->save();
+            return new HouseResource($house);
         } catch (\Throwable $th) {
             return response()->json(['message' => 'Casa no encontrada'], 404);
         }

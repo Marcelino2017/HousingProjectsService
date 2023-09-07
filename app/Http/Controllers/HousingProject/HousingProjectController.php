@@ -54,8 +54,8 @@ class HousingProjectController extends Controller
     {
         try {
             $housingProject = HousingProject::findOrFail($housingProjectId);
-            $housingProjectUpdate = $housingProject->fill($request->all());
-            return new HousingProjectResource($housingProjectUpdate);
+            $housingProject->fill($request->all())->save();
+            return new HousingProjectResource($housingProject);
         } catch (\Throwable $th) {
             return response()->json(['message' => 'Proyecto de vivienda no encontrado'], 404);
         }
