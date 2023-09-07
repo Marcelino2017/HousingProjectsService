@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\HousingProjectStoreRequest;
 use App\Models\HousingProject;
 use Illuminate\Http\Request;
 
@@ -18,9 +19,18 @@ class HousingProjectController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(HousingProjectStoreRequest $request)
     {
-        //
+        $housingProject = HousingProject::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'payment_number' => $request->payment_number,
+        ]);
+
+        return response()->json([
+            'housing_project' => $housingProject,
+            'status' => 'success',
+        ]);
     }
 
     /**
