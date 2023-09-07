@@ -26,27 +26,27 @@ Route::middleware('auth:sanctum')->group(function ()  {
     Route::post('/logout', [AuthController::class, 'logout']);
 
     Route::controller(HousingProjectController::class)->group(function () {
-        Route::get('/housingproject', 'index')->name('index');
-        Route::post('housingproject', 'store')->name('store');
-        Route::get('/housingproject/{housingProject}', 'show')->name('show');
-        Route::put('/housingproject/{housingProject}', 'update')->name('update');
-        Route::delete('/housingproject/{housingProject}', 'destroy')->name('destroy');
+        Route::get('/housingproject', 'index');
+        Route::post('housingproject', 'store');
+        Route::get('/housingproject/{housingProject}', 'show');
+        Route::put('/housingproject/{housingProject}', 'update');
+        Route::delete('/housingproject/{housingProject}', 'destroy');
     });
 
     Route::controller(HouseController::class)->group(function () {
-        Route::get('/house', 'index')->name('index');
-        Route::post('house', 'store')->name('store');
+        Route::get('/house', 'index');
+        Route::post('house', 'store');
         Route::get('/house/{house}', 'show')->name('show');
-        Route::put('/house/{house}', 'update')->name('update');
-        Route::delete('/house/{house}', 'destroy')->name('destroy');
+        Route::put('/house/{house}', 'update');
+        Route::delete('/house/{house}', 'destroy');
     });
 
     Route::controller(PaymentController::class)->group(function () {
-        Route::get('/payment', 'index')->name('index');
-        Route::post('payment', 'store')->name('store');
-        Route::get('/payment/{payment}', 'show')->name('show');
-        Route::put('/payment/{payment}', 'update')->name('update');
-        Route::delete('/payment/{payment}', 'destroy')->name('destroy');
+        Route::get('/payment', 'index');
+        Route::post('payment', 'store');
+        Route::get('/payment/{payment}', 'show');
+        Route::put('/payment/{payment}', 'update');
+        Route::delete('/payment/{payment}', 'destroy');
     });
 });
 
