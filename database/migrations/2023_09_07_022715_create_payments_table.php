@@ -13,10 +13,7 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-
+            
             $table->unsignedBigInteger('housing_project_id');
             $table->foreign('housing_project_id')->references('id')->on('housing_projects')->onDelete('cascade');
 
