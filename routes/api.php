@@ -27,9 +27,9 @@ Route::middleware('auth:sanctum')->group(function ()  {
     Route::controller(HousingProjectController::class)->group(function () {
         Route::get('/housingproject', 'index')->name('index');
         Route::post('housingproject', 'store')->name('store');
-        Route::get('/housingproject/{housingproject:housingproject}', 'show')->name('show');
-        Route::put('/housingproject/{housingproject:housingproject}', 'update')->name('update');
-        Route::delete('/housingproject/{housingproject:housingproject}', 'destroy')->name('destroy');
+        Route::get('/housingproject/{housingProject}', 'show')->name('show');
+        Route::put('/housingproject/{housingProject}', 'update')->name('update');
+        Route::delete('/housingproject/{housingProject}', 'destroy')->name('destroy');
     });
 
     Route::controller(HouseController::class)->group(function () {
