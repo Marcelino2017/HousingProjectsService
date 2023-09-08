@@ -14,8 +14,8 @@ Esta API permite listar e ingresar proyectos de vivienda definiendo un número d
 
     ```sh
     cd Downloads
-    git https://github.com/Marcelino2017/HousingProjectsService
-    cd HousingProjectsService-api
+    git https://github.com/Marcelino2017/HousingProjectsService.git
+    cd HousingProjectsService
     ```
 
 2. Una vez estas dentro de la raíz del proyecto (HousingProjectsService) ejecuta una única vez el siguiente comando:
